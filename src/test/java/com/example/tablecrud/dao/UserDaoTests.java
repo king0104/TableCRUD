@@ -36,7 +36,7 @@ public class UserDaoTests {
 
     @Test
     public void read() {
-        Optional<User> user = userDao.findById(654L); // 1L은 무슨 의미?
+        Optional<User> user = userDao.findById(654L);
 
         user.ifPresent(selectUser ->{
             System.out.println(selectUser.getName());
