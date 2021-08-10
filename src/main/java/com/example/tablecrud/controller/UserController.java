@@ -4,36 +4,34 @@ import com.example.tablecrud.dao.UserDao;
 import com.example.tablecrud.entity.User;
 import com.example.tablecrud.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.PostLoad;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/")
 public class UserController {
 
-    @Autowired
-    private UserDao userDao;
+    private final UserDao userDao;
+    private final UserService userService;
 
-    @Autowired
-    private UserService userService;
-
+    public UserController(UserDao userDao, UserService userService) {
+        this.userDao = userDao;
+        this.userService = userService;
+    }
 
     @PostMapping("/create")
     public void Save(@RequestBody User user) {
         userDao.save(user);
     }
 
-        // controller에 다 때려박은 것들 service 레이어로 나누기
-        // 질문. controlloer에서 user 정보를 받아 service로 넘겨줘야 할 것 같은데 어떻게 넘겨야 할지 모르겠습니다...
-        @PostMapping("/create")
-        public void save(Model model){
-            model.addAttribute("createUsers", userService.save());
-            return "createUser";
-        }
+    // controller에 다 때려박은 것들 service 레이어로 나누기
+    // 질문. controlloer에서 user 정보를 받아 service로 넘겨줘야 할 것 같은데 어떻게 넘겨야 할지 모르겠습니다...
+//    @PostMapping("/create")
+//    public String save(Model model){
+//        userService.save("name", 10);
+//        return "createUser";
+//    }
 
     @GetMapping("read")
     public User findUser(@RequestParam Long id) {
