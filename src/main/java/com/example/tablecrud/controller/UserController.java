@@ -18,24 +18,13 @@ public class UserController {
     @Autowired
     private UserDao userDao;
 
-    @Autowired
-    private UserService userService;
-
-
     @PostMapping("/create")
     public void Save(@RequestBody User user) {
         userDao.save(user);
     }
 
-        // controller에 다 때려박은 것들 service 레이어로 나누기
-        // 질문. controlloer에서 user 정보를 받아 service로 넘겨줘야 할 것 같은데 어떻게 넘겨야 할지 모르겠습니다...
-        @PostMapping("/create")
-        public void save(Model model){
-            model.addAttribute("createUsers", userService.save());
-            return "createUser";
-        }
 
-    @GetMapping("read")
+    @GetMapping("/read")
     public User findUser(@RequestParam Long id) {
         Optional<User> user = userDao.findById(id);
 

@@ -2,6 +2,8 @@ package com.example.tablecrud.controller;
 
 import com.example.tablecrud.entity.SearchParamVO;
 import com.example.tablecrud.entity.SearchVO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +22,8 @@ public class TestController {
     }
 
     @GetMapping("/user")
-    public String getRequest() {
-        return "hello";
+    public ResponseEntity getRequest() {
+        return new ResponseEntity("success", HttpStatus.OK);
     }
 
     @GetMapping("/getParam")
