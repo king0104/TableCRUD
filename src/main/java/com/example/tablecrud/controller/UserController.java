@@ -18,7 +18,7 @@ public class UserController {
     @Autowired
     private UserDao userDao;
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
     public void Save(@RequestBody User user) {
         userDao.save(user);
     }
@@ -39,12 +39,14 @@ public class UserController {
             selectUser.setName(user.getName());
             selectUser.setCash(user.getCash());
 
-            userDao.save(selectUser); // 업데이트한 user를 데이터베이스에 저장한다
-            // 질문. 이 userDao는 update가 아니라 데이터베이스에 새로운 하나의 row를 또 만드는거 아닌가요?
+            userDao.save(selectUser);
         });
 
         return updateUser;
     }
+
+    // 업데이트한 user를 데이터베이스에 저장한다
+    // 질문. 이 userDao는 update가 아니라 데이터베이스에 새로운 하나의 row를 또 만드는거 아닌가요?
 
     @GetMapping("/delete")
     public Optional<User> deleteUser(@RequestParam Long id) {
